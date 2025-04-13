@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife by Mohit</title>
+    <style>
+        :root {
+            --primary: #ff4c29;
+            --secondary: #082032;
+            --light: #f0f0f0;
+            --dark: #2c394b;
+            --text: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin-left: 30px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+            margin-top: 10px;
+        }
+        
+        .dropdown-content a {
+            color: var(--text);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: var(--primary);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Mobile Nav Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .cta-btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-img {
+            flex: 1;
+        }
+        
+        .about-img img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .certification-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .certification-box h4 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .contact-info i {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .contact-email {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                background-color: var(--secondary);
+                width: 100%;
+                flex-direction: column;
+                transition: 0.3s;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+                text-align: center;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+                margin-top: 10px;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+    <script>
+
+        // Page Navigation System
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-content a');
+            const pages = document.querySelectorAll('.page');
+            
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinksContainer = document.querySelector('.nav-links');
+            
+            // Function to navigate to a page
+            function navigateToPage(pageId) {
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show the selected page
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    
+                    // Scroll to top when changing pages
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu when a link is clicked
+                if (window.innerWidth <= 768) {
+                    navLinksContainer.classList.remove('active');
+                    toggleMenuIcon(false);
+                }
+                
+                // Update URL without reload (for bookmarking)
+                history.pushState(null, null, `#${pageId}`);
+            }
+            
+            // Add click event to all navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page') || this.getAttribute('href').substring(1);
+                    navigateToPage(pageId);
+                });
+            });
+            
+            // Mobile menu toggle
+            function toggleMenuIcon(isOpen) {
+                const bars = menuToggle.querySelectorAll('.bar');
+                if (isOpen) {
+                    bars[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
+                    bars[1].style.opacity = '0';
+                    bars[2].style.transform = 'rotate(45deg) translate(-5px, -6px)';
+                } else {
+                    bars[0].style.transform = 'none';
+                    bars[1].style.opacity = '1';
+                    bars[2].style.transform = 'none';
+                }
+            }
+            
+            menuToggle.addEventListener('click', function() {
+                const isActive = navLinksContainer.classList.toggle('active');
+                toggleMenuIcon(isActive);
+            });
+            
+            // Handle dropdown menu on mobile
+            const dropdowns = document.querySelectorAll('.dropdown');
+            if (window.innerWidth <= 768) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('nav-link')) {
+                            e.preventDefault();
+                            this.classList.toggle('active');
+                        }
+                    });
+                });
+            }
+            
+            // Check for hash in URL on page load
+            if (location.hash) {
+                const pageId = location.hash.substring(1);
+                navigateToPage(pageId);
+            }
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function() {
+                if (location.hash) {
+                    const pageId = location.hash.substring(1);
+                    navigateToPage(pageId);
+                } else {
+                    navigateToPage('home');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        // If it's a page link, use the page navigation
+                        const isPage = Array.from(pages).some(page => page.id === targetId);
+                        if (isPage) {
+                            navigateToPage(targetId);
+                        } else {
+                            // Otherwise do a smooth scroll within the page
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.service-card, .about-content, .program-content');
+            
+            function checkScroll() {
+                const triggerBottom = window.innerHeight * 0.8;
+                
+                animatedElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    
+                    if (elementTop < triggerBottom) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Set initial state for animations
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // Check for animations on scroll
+            window.addEventListener('scroll', checkScroll);
+            
+            // Initial check for animations
+            checkScroll();
+        });</script>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Fit<span>Life</span> by Mohit</a>
+                <div class="menu-toggle">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <ul class="nav-links">
+                    <li class="nav-item"><a href="#home" class="nav-link" data-page="home">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link" data-page="about">About Us</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#programs" class="nav-link">Programs</a>
+                        <div class="dropdown-content">
+                            <a href="#weight-loss" data-page="weight-loss">Weight Loss</a>
+                            <a href="#weight-gain" data-page="weight-gain">Weight Gain</a>
+                            <a href="#pilates" data-page="pilates">Pilates</a>
+                            <a href="#functional" data-page="functional">Functional Training</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#virtual" class="nav-link" data-page="virtual">Virtual Sessions</a></li>
+                    <li class="nav-item"><a href="#fitness-at-home" class="nav-link" data-page="fitness-at-home">Fitness At-Home</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Transform Your Body, Transform Your Life</h1>
+                    <p>Join FitLife by Mohit to achieve your fitness goals with personalized training plans and expert guidance.</p>
+                    <a href="#contact" class="cta-btn">Start Your Journey</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section>
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Services</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="/api/placeholder/400/300" alt="Personal Training">
+                        </div>
+                        <div class="service-content">
+                            <h3>Personal Training</h3>
+                            <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="/api/placeholder/400/300" alt="Virtual Sessions">
+                        </div>
+                        <div class="service-content">
+                            <h3>Virtual Sessions</h3>
+                            <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="/api/placeholder/400/300" alt="Fitness At-Home">
+                        </div>
+                        <div class="service-content">
+                            <h3>Fitness At-Home</h3>
+                            <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Us</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-img">
+                        <img src="/api/placeholder/600/600" alt="Mohit - Fitness Coach">
+                    </div>
+                    <div class="about-text">
+                        <h3>Meet Your Trainer</h3>
+                        <p>I'm Mohit, a certified fitness coach with a passion for helping individuals achieve their wellness goals through personalized training. With 5 years of experience in the fitness industry, I specialize in creating customized workout plans that seamlessly integrate into your lifestyle.</p>
+                        <p>My approach combines expert knowledge with a commitment to motivation and support, ensuring you reach your full potential. Let's work together to see the CHANGE.</p>
+                        <div class="certification-box">
+                            <h4>Certification</h4>
+                            <p>I hold a certification as a Personal Trainer from K11 School of Fitness, Pune Maharashtra. Where I have been trained in creating personal programs, understanding anatomy and exercise physiology, and implementing effective training techniques. This certification equips me with the knowledge and skills to help you reach your fitness goals safely and efficiently.</p>
+                            <p>Here you can have a look at the certification docs below.</p>
+                            <div style="margin-top: 15px;">
+                                <img src="/api/placeholder/300/200" alt="Certification Document" style="max-width: 100%; border-radius: 4px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programs - Weight Loss -->
+    <div id="weight-loss" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Weight Loss Program</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Weight Loss Program" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Achieve Your Weight Loss Goals</h3>
+                    <p>Our weight loss program is designed to help you shed those extra pounds through a combination of targeted exercises, nutritional guidance, and consistent support. We focus on sustainable weight loss that becomes a lifestyle change rather than a temporary fix.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Personalized workout plans focused on fat burning</li>
+                        <li>Customized nutrition guidance</li>
+                        <li>Regular progress tracking and adjustments</li>
+                        <li>Mix of cardio and resistance training</li>
+                        <li>Support and accountability throughout your journey</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Enroll Now</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programs - Weight Gain -->
+    <div id="weight-gain" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Weight Gain Program</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Weight Gain Program" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Build Muscle and Strength</h3>
+                    <p>Our weight gain program focuses on helping you build lean muscle mass through strategic strength training and proper nutrition. Whether you're naturally thin or looking to increase your muscle definition, our approach ensures healthy and sustainable results.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Progressive resistance training protocols</li>
+                        <li>Caloric surplus nutritional planning</li>
+                        <li>Focus on compound movements for maximum muscle growth</li>
+                        <li>Protein timing and supplementation guidance</li>
+                        <li>Recovery optimization techniques</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Enroll Now</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programs - Pilates -->
+    <div id="pilates" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Pilates Program</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Pilates Program" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Core Strength and Flexibility</h3>
+                    <p>Our Pilates program focuses on developing core strength, improving posture, and enhancing overall body flexibility. Through controlled movements and proper breathing techniques, Pilates helps create a strong foundation for all physical activities while promoting mind-body awareness.</p>
+                    <h4>Program Benefits:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Improved core stability and strength</li>
+                        <li>Better posture and body alignment</li>
+                        <li>Enhanced flexibility and range of motion</li>
+                        <li>Reduced back pain and injury prevention</li>
+                        <li>Stress reduction and improved mental focus</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Enroll Now</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programs - Functional Training -->
+    <div id="functional" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Functional Training</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Functional Training" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Train for Real-Life Movement</h3>
+                    <p>Our functional training program focuses on building strength, stability, and mobility that translates directly to your everyday activities. By mimicking natural movement patterns, functional training improves your overall performance while reducing the risk of injury in daily life.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Multi-joint, multi-planar movement exercises</li>
+                        <li>Core and balance training integration</li>
+                        <li>Emphasis on proper movement patterns</li>
+                        <li>Adaptable intensity levels for all fitness backgrounds</li>
+                        <li>Real-world application of fitness gains</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Enroll Now</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Virtual Sessions -->
+    <div id="virtual" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Virtual Sessions</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Virtual Training" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Train Anywhere, Anytime</h3>
+                    <p>Our virtual training sessions bring the gym experience directly to you, wherever you are. With live video coaching, real-time feedback, and personalized workout plans, you'll get all the benefits of in-person training with added convenience.</p>
+                    <h4>Virtual Training Benefits:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Flexible scheduling to fit your lifestyle</li>
+                        <li>No commute time or gym membership required</li>
+                        <li>Real-time form correction and guidance</li>
+                        <li>Workouts designed for your available equipment</li>
+                        <li>Same level of accountability and support as in-person training</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Schedule a Session</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Fitness At-Home -->
+    <div id="fitness-at-home" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Fitness At-Home</h2>
+                </div>
+                <div class="program-content">
+                    <img src="/api/placeholder/1000/500" alt="Home Fitness" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>Transform Your Space Into a Gym</h3>
+                    <p>Our Fitness At-Home program provides you with everything you need to achieve your fitness goals without leaving your home. We design customized workouts using minimal equipment that deliver maximum results, no matter your space constraints.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Equipment-minimal workout plans</li>
+                        <li>Space-efficient exercise selection</li>
+                        <li>Digital workout libraries and guides</li>
+                        <li>Progressive programs to advance your fitness</li>
+                        <li>Regular check-ins and program updates</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Get Started</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                </div>
+                <div class="contact-info">
+                    <i>📧</i>
+                    <h3>Get in Touch</h3>
+                    <p>Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!</p>
+                    <p class="contact-email">fitlifebymohit@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Fit<span>Life</span> by Mohit</div>
+            <p>Transforming lives through personalized fitness training.</p>
+            <p class="copyright">© 2025 FitLife by Mohit. All Rights Reserved.</p>
+        </div>
+    </footer>
