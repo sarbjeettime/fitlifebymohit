@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -148,20 +149,57 @@
             transition: 0.4s;
         }
         
-        /* Hero Section */
+        /* Hero Section with Video Background */
         .hero {
+            position: relative;
             height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
             color: white;
+            overflow: hidden;
             padding-top: 80px;
         }
         
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        #hero-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: calc(100vh - 80px);
         }
         
         .hero h1 {
@@ -187,11 +225,35 @@
             letter-spacing: 1px;
             transition: all 0.3s;
             border: 2px solid var(--primary);
+            width: fit-content;
         }
         
         .cta-btn:hover {
             background-color: transparent;
             color: var(--primary);
+        }
+        
+        /* Video scroll effect classes */
+        .video-scroll-effect {
+            position: fixed;
+            top: auto;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 180px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 900;
+        }
+        
+        .video-scroll-effect #hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: none;
+            top: 0;
+            left: 0;
         }
         
         /* Sections */
@@ -234,8 +296,9 @@
         }
         
         .about-img img {
-            width: 100%;
-            border-radius: 8px;
+            width: 80%;
+            height: 50%;
+            border-radius: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
@@ -302,6 +365,52 @@
         }
         
         .service-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        /* Programs Section */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-template-rows:repeat(2,1fr);
+            gap: 30px;
+        }
+        
+        .programs-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .programs-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .programs-img {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .programs-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .programs-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .programs-content {
+            padding: 20px;
+        }
+        
+        .programs-content h3 {
             margin-bottom: 10px;
             color: var(--dark);
         }
@@ -423,10 +532,16 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
+            
+            .video-scroll-effect {
+                width: 240px;
+                height: 135px;
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
     <script>
-
         // Page Navigation System
         document.addEventListener('DOMContentLoaded', function() {
             // Get all navigation links
@@ -436,6 +551,10 @@
             // Mobile menu toggle
             const menuToggle = document.querySelector('.menu-toggle');
             const navLinksContainer = document.querySelector('.nav-links');
+            
+            // Video scroll effect
+            const videoContainer = document.querySelector('.video-container');
+            const heroSection = document.querySelector('.hero');
             
             // Function to navigate to a page
             function navigateToPage(pageId) {
@@ -547,6 +666,19 @@
                 });
             });
             
+            // Video scroll effect
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const heroHeight = heroSection.offsetHeight;
+                
+                // Start transition when scrolled past 50% of hero section
+                if (scrollPosition > heroHeight * 0.5) {
+                    videoContainer.classList.add('video-scroll-effect');
+                } else {
+                    videoContainer.classList.remove('video-scroll-effect');
+                }
+            });
+            
             // Add scroll animations
             const animatedElements = document.querySelectorAll('.service-card, .about-content, .program-content');
             
@@ -575,7 +707,8 @@
             
             // Initial check for animations
             checkScroll();
-        });</script>
+        });
+    </script>
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -610,8 +743,14 @@
 
     <!-- Home Page -->
     <div id="home" class="page active">
-        <!-- Hero Section -->
+        <!-- Hero Section with Video Background -->
         <section class="hero">
+            <div class="video-container">
+                <video autoplay muted loop id="hero-video">
+                    <source src="photos/bg.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="container">
                 <div class="hero-content">
                     <h1>Transform Your Body, Transform Your Life</h1>
@@ -630,7 +769,7 @@
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-img">
-                            <img src="/api/placeholder/400/300" alt="Personal Training">
+                            <img src="photos/personal training.jpg" alt="Personal Training">
                         </div>
                         <div class="service-content">
                             <h3>Personal Training</h3>
@@ -639,7 +778,7 @@
                     </div>
                     <div class="service-card">
                         <div class="service-img">
-                            <img src="/api/placeholder/400/300" alt="Virtual Sessions">
+                            <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
                         </div>
                         <div class="service-content">
                             <h3>Virtual Sessions</h3>
@@ -648,7 +787,7 @@
                     </div>
                     <div class="service-card">
                         <div class="service-img">
-                            <img src="/api/placeholder/400/300" alt="Fitness At-Home">
+                            <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
                         </div>
                         <div class="service-content">
                             <h3>Fitness At-Home</h3>
@@ -660,6 +799,7 @@
         </section>
     </div>
 
+    <!-- Rest of the pages remain the same... -->
     <!-- About Page -->
     <div id="about" class="page">
         <section style="padding-top: 120px;">
@@ -669,7 +809,7 @@
                 </div>
                 <div class="about-content">
                     <div class="about-img">
-                        <img src="/api/placeholder/600/600" alt="Mohit - Fitness Coach">
+                        <img src="photos/about mohit.jpg" alt="Mohit - Fitness Coach">
                     </div>
                     <div class="about-text">
                         <h3>Meet Your Trainer</h3>
@@ -688,7 +828,57 @@
             </div>
         </section>
     </div>
+    
+    <!-- Programs - base -->
+    <div id="programs" class="page">
+        <section style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Programs</h2>
+                </div>
+                <div class="programs-grid">
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/personal training.jpg" alt="Personal Training">
+                        </div>
+                        <div class="programs-content">
+                            <h3>weight-gain</h3>
+                            <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
+                        </div>
+                    </div>
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Weight-Loss</h3>
+                            <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
+                        </div>
+                    </div>
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Pilates</h3>
+                            <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
+                        </div>
+                    </div>
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Functional training</h3>
+                            <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
+    <!-- Other pages remain the same... -->
     <!-- Programs - Weight Loss -->
     <div id="weight-loss" class="page">
         <section style="padding-top: 120px;">
