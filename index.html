@@ -584,6 +584,128 @@
                 right: 10px;
             }
         }
+        .contact-section {
+  padding-top: 120px;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+/* contact css */
+.contact-section {
+  padding-top: 8em;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.contact-container {
+  max-width: 90%;
+  margin: auto;
+  text-align: center;
+  padding: 1.5em;
+}
+
+.contact-heading {
+  font-size: 2.25em;
+  margin-bottom: 0.5em;
+  color: #222;
+}
+
+.contact-info {
+  background-color: #ffffff;
+  padding: 1.5em;
+  border-radius: 1.25em;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.contact-icon {
+  width: 5em;
+  margin-bottom: 1.25em;
+}
+
+.contact-subheading {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+.contact-text {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 2em;
+  padding: 0 1em;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.5em;
+  padding: 0.75em 1.5em;
+  color: white;
+  text-decoration: none;
+  border-radius: 2em;
+  font-size: 1em;
+  width: auto;
+  white-space: nowrap;
+}
+
+.email-btn {
+  background-color: #0073e6;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-heading {
+    font-size: 1.75em;
+  }
+
+  .contact-subheading {
+    font-size: 1.25em;
+  }
+
+  .contact-text {
+    font-size: 0.95em;
+  }
+
+  .contact-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95em;
+  }
+
+  .contact-icon {
+    width: 4em;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding-top: 4em;
+  }
+
+  .contact-heading {
+    font-size: 1.5em;
+  }
+
+  .contact-subheading {
+    font-size: 1.1em;
+  }
+
+  .contact-btn {
+    font-size: 0.9em;
+    padding: 0.75em 1em;
+  }
+
+  .contact-container {
+    padding: 1em;
+  }
+}
+
+
+
     </style>
     <style>
   body.dark-theme {
@@ -640,6 +762,7 @@
     background-color: transparent;
     color: var(--primary);
   }
+  
 </style>
 <script>
   // Dark mode toggle logic
@@ -1287,37 +1410,32 @@
 
     <!-- Contact Page -->
     <div id="contact" class="page">
-        <section style="padding-top: 120px; font-family: Arial, sans-serif; background: #f4f6f8;">
-  <div class="container" style="max-width: 800px; margin: auto; text-align: center; padding: 20px;">
-    
+    <section class="contact-section">
+  <div class="container contact-container">
     <div class="section-title-about">
-      <h2 style="font-size: 36px; margin-bottom: 10px; color: #222;">📬 Contact Us</h2>
+      <h2 class="contact-heading">📬 Contact Us</h2>
     </div>
-    
-    <div class="contact-info" style="background-color: #ffffff; padding: 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-      
-      <img src="https://img.icons8.com/clouds/100/000000/new-post.png" alt="Email Icon" style="width: 80px; margin-bottom: 20px;" />
-      <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Get in Touch</h3>
-      <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+
+    <div class="contact-info">
+      <img src="https://img.icons8.com/clouds/100/000000/new-post.png" alt="Email Icon" class="contact-icon" />
+      <h3 class="contact-subheading">Get in Touch</h3>
+      <p class="contact-text">
         Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!
       </p>
 
-      <a href="mailto:fitlifebymohit@gmail.com?subject=Inquiry&body=Hello%2C%20I%20have%20a%20question%20about%20your%20services."
-         style="display: inline-flex; align-items: center; gap: 10px; margin: 10px; width: 15vw;; padding:14px 24px; background-color: #0073e6; color: white; text-decoration: none; border-radius: 30px; font-size: 16px;">
+      <a href="mailto:fitlifebymohit@gmail.com?subject=Inquiry&body=Hello%2C%20I%20have%20a%20question%20about%20your%20services." class="contact-btn email-btn">
         <img src="https://img.icons8.com/ios-filled/24/ffffff/new-post.png" alt="Mail Icon" />
-           Email Us
+        Email Us
       </a>
 
-      <a href="https://wa.me/918307998095?text=Hello%2C%20I%20am%20interested%20in%20your%20services"
-         style="display: inline-flex; align-items: center; gap: 10px; margin: 10px; width: 15vw;padding: 14px 24px; background-color: #25D366; color: white; text-decoration: none; border-radius: 30px; font-size: 16px;"
-         target="_blank">
+      <a href="https://wa.me/918307998095?text=Hello%2C%20I%20am%20interested%20in%20your%20services" class="contact-btn whatsapp-btn" target="_blank">
         <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp Icon" />
         Chat on WhatsApp
       </a>
-
     </div>
   </div>
 </section>
+
 
     </div>
     <!-- certifications page -->
