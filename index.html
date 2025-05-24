@@ -265,6 +265,10 @@
             text-align: center;
             margin-bottom: 60px;
         }
+        .section-title-about {
+            text-align: center;
+            margin-bottom: 30px;
+        }
         
         .section-title h2 {
             font-size: 2.5rem;
@@ -902,6 +906,10 @@
           
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"/>
           <style>
+            .link{
+                text-decoration: none;
+                color: inherit;
+            }
             .custom-slider-wrapper {
               font-family: sans-serif;
               display: flex;
@@ -1019,7 +1027,7 @@
                             <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
                         </div>
                     </div>
-                   <a href="#virtual" data-page="virtual"> <div class="service-card">
+                   <a href="#virtual" class="link" data-page="virtual"> <div class="service-card">
                         <div class="service-img">
                             <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
                         </div>
@@ -1028,7 +1036,7 @@
                             <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs completely at your place virtually.</p>
                         </div>
                     </div></a>
-                   <a href="#fitness-at-home" data-page="fitness-at-home"> <div class="service-card">
+                   <a href="#fitness-at-home"class="link" data-page="fitness-at-home"> <div class="service-card">
                         <div class="service-img">
                             <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
                         </div>
@@ -1080,7 +1088,7 @@
                     <h2>Our Programs</h2>
                 </div>
                 <div class="programs-grid">
-                  <a href="#weight-gain" data-page="weight-gain">  <div class="programs-card">
+                  <a href="#weight-gain" class="link"data-page="weight-gain">  <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/personal training.jpg" alt="Personal Training">
                         </div>
@@ -1089,7 +1097,7 @@
                             <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
                         </div>
                     </div></a>
-                  <a href="#weight-loss" data-page="weight-loss">   <div class="programs-card">
+                  <a href="#weight-loss" class="link"data-page="weight-loss">   <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
                         </div>
@@ -1098,7 +1106,7 @@
                             <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
                         </div>
                     </div></a>
-                   <a href="#pilates" data-page="pilates"> <div class="programs-card">
+                   <a href="#pilates"class="link" data-page="pilates"> <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/pilates.jpg" alt="Fitness At-Home">
                         </div>
@@ -1107,7 +1115,7 @@
                             <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
                         </div>
                     </div> </a>
-                   <a href="#functional" data-page="functional">  <div class="programs-card">
+                   <a href="#functional" class="link"data-page="functional">  <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/functional_training.jpg" alt="Fitness At-Home">
                         </div>
@@ -1279,19 +1287,38 @@
 
     <!-- Contact Page -->
     <div id="contact" class="page">
-        <section style="padding-top: 120px;">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Contact Us</h2>
-                </div>
-                <div class="contact-info">
-                    <i>📧</i>
-                    <h3>Get in Touch</h3>
-                    <p>Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!</p>
-                    <p class="contact-email">fitlifebymohit@gmail.com</p>
-                </div>
-            </div>
-        </section>
+        <section style="padding-top: 120px; font-family: Arial, sans-serif; background: #f4f6f8;">
+  <div class="container" style="max-width: 800px; margin: auto; text-align: center; padding: 20px;">
+    
+    <div class="section-title-about">
+      <h2 style="font-size: 36px; margin-bottom: 10px; color: #222;">📬 Contact Us</h2>
+    </div>
+    
+    <div class="contact-info" style="background-color: #ffffff; padding: 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+      
+      <img src="https://img.icons8.com/clouds/100/000000/new-post.png" alt="Email Icon" style="width: 80px; margin-bottom: 20px;" />
+      <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Get in Touch</h3>
+      <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+        Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!
+      </p>
+
+      <a href="mailto:fitlifebymohit@gmail.com?subject=Inquiry&body=Hello%2C%20I%20have%20a%20question%20about%20your%20services."
+         style="display: inline-flex; align-items: center; gap: 10px; margin: 10px; width: 15vw;; padding:14px 24px; background-color: #0073e6; color: white; text-decoration: none; border-radius: 30px; font-size: 16px;">
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/new-post.png" alt="Mail Icon" />
+           Email Us
+      </a>
+
+      <a href="https://wa.me/918307998095?text=Hello%2C%20I%20am%20interested%20in%20your%20services"
+         style="display: inline-flex; align-items: center; gap: 10px; margin: 10px; width: 15vw;padding: 14px 24px; background-color: #25D366; color: white; text-decoration: none; border-radius: 30px; font-size: 16px;"
+         target="_blank">
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp Icon" />
+        Chat on WhatsApp
+      </a>
+
+    </div>
+  </div>
+</section>
+
     </div>
     <!-- certifications page -->
         <div id="certifications" class="page">
