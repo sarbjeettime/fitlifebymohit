@@ -283,6 +283,46 @@
             left: 50%;
             transform: translateX(-50%);
         }
+        /*program-content*/
+        .program-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        .program-content-img {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 4/5;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        @media (max-width: 900px) {
+          .program-content {
+            gap: 20px;
+          }
+          .program-content-img {
+            max-width: 250px;
+            aspect-ratio: 4/5;
+          }
+        }
+        @media (max-width: 768px) {
+          .program-content {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .program-content-img {
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 0;
+            aspect-ratio: 4/5;
+          }
+          /* Remove order so image stays first */
+        }
         
         /* About Section */
         .about-content {
@@ -841,7 +881,7 @@
                 </div>
             </div>
         </section>
-        <div class="custom-slider-wrapper">
+           <div class="custom-slider-wrapper">
             <div class="custom-swiper">
               <div class="custom-hover-zone custom-left-zone"></div>
               <div class="custom-hover-zone custom-right-zone"></div>
@@ -858,7 +898,7 @@
               </div>
               <div class="swiper-pagination"></div>
             </div>
-          </div>
+       </div>
           
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.css"/>
           <style>
@@ -869,6 +909,8 @@
               align-items: center;
               background: #f5f5f5;
               padding: 2em 0;
+              width: 100%;
+              overflow-x: hidden;
             }
           
             .custom-swiper {
@@ -877,6 +919,7 @@
               position: relative;
               padding: 0 1em;
               box-sizing: border-box;
+              overflow-x: hidden;
             }
           
             .swiper-wrapper {
@@ -976,16 +1019,16 @@
                             <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
                         </div>
                     </div>
-                    <div class="service-card">
+                   <a href="#virtual" data-page="virtual"> <div class="service-card">
                         <div class="service-img">
                             <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
                         </div>
                         <div class="service-content">
                             <h3>Virtual Sessions</h3>
-                            <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
+                            <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs completely at your place virtually.</p>
                         </div>
-                    </div>
-                    <div class="service-card">
+                    </div></a>
+                   <a href="#fitness-at-home" data-page="fitness-at-home"> <div class="service-card">
                         <div class="service-img">
                             <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
                         </div>
@@ -993,7 +1036,7 @@
                             <h3>Fitness At-Home</h3>
                             <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
             </div>
         </section>
@@ -1037,7 +1080,7 @@
                     <h2>Our Programs</h2>
                 </div>
                 <div class="programs-grid">
-                    <div class="programs-card">
+                  <a href="#weight-gain" data-page="weight-gain">  <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/personal training.jpg" alt="Personal Training">
                         </div>
@@ -1045,8 +1088,8 @@
                             <h3>weight-gain</h3>
                             <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
                         </div>
-                    </div>
-                    <div class="programs-card">
+                    </div></a>
+                  <a href="#weight-loss" data-page="weight-loss">   <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
                         </div>
@@ -1054,8 +1097,8 @@
                             <h3>Weight-Loss</h3>
                             <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
                         </div>
-                    </div>
-                    <div class="programs-card">
+                    </div></a>
+                   <a href="#pilates" data-page="pilates"> <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/pilates.jpg" alt="Fitness At-Home">
                         </div>
@@ -1063,8 +1106,8 @@
                             <h3>Pilates</h3>
                             <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
                         </div>
-                    </div>
-                    <div class="programs-card">
+                    </div> </a>
+                   <a href="#functional" data-page="functional">  <div class="programs-card">
                         <div class="programs-img">
                             <img src="photos/functional_training.jpg" alt="Fitness At-Home">
                         </div>
@@ -1072,7 +1115,7 @@
                             <h3>Functional training</h3>
                             <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
                         </div>
-                    </div>
+                    </div> </a>
                 </div>
             </div>
         </section>
@@ -1087,8 +1130,9 @@
                     <h2>Weight Loss Program</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/" alt="Weight Loss Program" style="width: 100%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Achieve Your Weight Loss Goals</h3>
+                    <div ><img src="photos/weight_loss.jpg" alt="Weight Loss Program" class="program-content-img">
+                   </div> 
+                   <div><h3>Achieve Your Weight Loss Goals</h3>
                     <p>Our weight loss program is designed to help you shed those extra pounds through a combination of targeted exercises, nutritional guidance, and consistent support. We focus on sustainable weight loss that becomes a lifestyle change rather than a temporary fix.</p>
                     <h4>Program Features:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1099,7 +1143,7 @@
                         <li>Support and accountability throughout your journey</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Enroll Now</a>
-                </div>
+                </div></div>
             </div>
         </section>
     </div>
@@ -1112,8 +1156,10 @@
                     <h2>Weight Gain Program</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/weight_gain.jpg" alt="Weight Gain Program" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Build Muscle and Strength</h3>
+                    <div><img src="photos/weight_gain.jpg" alt="Weight Gain Program" class="program-content-img">
+                   </div> 
+                
+                <div><h3>Build Muscle and Strength</h3>
                     <p>Our weight gain program focuses on helping you build lean muscle mass through strategic strength training and proper nutrition. Whether you're naturally thin or looking to increase your muscle definition, our approach ensures healthy and sustainable results.</p>
                     <h4>Program Features:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1124,7 +1170,7 @@
                         <li>Recovery optimization techniques</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Enroll Now</a>
-                </div>
+               </div></div>
             </div>
         </section>
     </div>
@@ -1137,8 +1183,9 @@
                     <h2>Pilates Program</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/pilates.jpg" alt="Pilates Program" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Core Strength and Flexibility</h3>
+                  <div>  <img src="photos/pilates.jpg" alt="Pilates Program" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
+                   </div>
+                <div><h3>Core Strength and Flexibility</h3>
                     <p>Our Pilates program focuses on developing core strength, improving posture, and enhancing overall body flexibility. Through controlled movements and proper breathing techniques, Pilates helps create a strong foundation for all physical activities while promoting mind-body awareness.</p>
                     <h4>Program Benefits:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1149,7 +1196,7 @@
                         <li>Stress reduction and improved mental focus</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Enroll Now</a>
-                </div>
+                </div> </div>
             </div>
         </section>
     </div>
@@ -1162,8 +1209,9 @@
                     <h2>Functional Training</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/functional_training.jpg" alt="Functional Training" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Train for Real-Life Movement</h3>
+                    <div><img src="photos/functional_training.jpg" alt="Functional Training" class="program-content-img">
+                   </div> 
+                   <div><h3>Train for Real-Life Movement</h3>
                     <p>Our functional training program focuses on building strength, stability, and mobility that translates directly to your everyday activities. By mimicking natural movement patterns, functional training improves your overall performance while reducing the risk of injury in daily life.</p>
                     <h4>Program Features:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1173,7 +1221,7 @@
                         <li>Adaptable intensity levels for all fitness backgrounds</li>
                         <li>Real-world application of fitness gains</li>
                     </ul>
-                    <a href="#contact" class="cta-btn">Enroll Now</a>
+                    <a href="#contact" class="cta-btn">Enroll Now</a></div>
                 </div>
             </div>
         </section>
@@ -1187,8 +1235,8 @@
                     <h2>Virtual Sessions</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/virtual sessions.jpg" alt="Virtual Training" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Train Anywhere, Anytime</h3>
+                    <div><img src="photos/virtual sessions.jpg" alt="Virtual Training" class="program-content-img">
+                   </div> <div><h3>Train Anywhere, Anytime</h3>
                     <p>Our virtual training sessions bring the gym experience directly to you, wherever you are. With live video coaching, real-time feedback, and personalized workout plans, you'll get all the benefits of in-person training with added convenience.</p>
                     <h4>Virtual Training Benefits:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1199,7 +1247,7 @@
                         <li>Same level of accountability and support as in-person training</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Schedule a Session</a>
-                </div>
+                </div></div>
             </div>
         </section>
     </div>
@@ -1212,8 +1260,8 @@
                     <h2>Fitness At-Home</h2>
                 </div>
                 <div class="program-content">
-                    <img src="photos/fitness at home.jpg" alt="Home Fitness" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                    <h3>Transform Your Space Into a Gym</h3>
+                   <div> <img src="photos/fitness at home.jpg" alt="Home Fitness" class="program-content-img">
+                   </div><div> <h3>Transform Your Space Into a Gym</h3>
                     <p>Our Fitness At-Home program provides you with everything you need to achieve your fitness goals without leaving your home. We design customized workouts using minimal equipment that deliver maximum results, no matter your space constraints.</p>
                     <h4>Program Features:</h4>
                     <ul style="margin-left: 20px; margin-bottom: 20px;">
@@ -1224,7 +1272,7 @@
                         <li>Regular check-ins and program updates</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Get Started</a>
-                </div>
+                </div></div>
             </div>
         </section>
     </div>
