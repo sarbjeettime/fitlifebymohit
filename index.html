@@ -584,126 +584,46 @@
                 right: 10px;
             }
         }
-        .contact-section {
-  padding-top: 120px;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+        
+/* css contact form */
+
+.contact-section{padding:4rem 1rem;font-family:'Segoe UI',sans-serif;background:#f4f6f8}
+.contact-main{max-width:1200px;margin:0 auto;display:flex;gap:2rem;align-items:stretch; margin-top: 8%;}
+.contact-info,.contact-form{flex:1}
+.contact-info{background:#fff;padding:2rem;border-radius:1.25rem;box-shadow:0 4px 20px rgba(0,0,0,0.05);text-align:center}
+.contact-heading{font-size:2.25rem;margin-bottom:1rem;color:#222}
+.contact-subheading{font-size:1.5rem;margin-bottom:0.5rem;color:#333}
+.contact-text{font-size:1rem;color:#666;margin-bottom:2rem}
+.contact-icon{width:5rem;margin-bottom:1.25rem}
+.contact-btn{display:inline-flex;align-items:center;gap:0.5rem;margin:0.5rem;padding:0.75rem 1.5rem;color:white;text-decoration:none;border-radius:2rem;font-size:1rem;transition:transform 0.3s}
+.contact-btn:hover{transform:translateY(-2px)}
+.email-btn{background:#0073e6}
+.whatsapp-btn{background:#25D366}
+.contact-form{background:rgba(0,0,0,0.8);border:1px solid #333;border-radius:15px;padding:2.5rem;backdrop-filter:blur(10px);box-shadow:0 15px 35px rgba(0,0,0,0.5)}
+.form-heading{color:#fff;text-align:center;margin-bottom:2rem;font-size:2rem;font-weight:300;letter-spacing:1px;margin-top:0}
+.input-group{margin-bottom:1.5rem}
+.input-field{width:100%;padding:1rem 1.2rem;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:1rem;transition:all 0.3s;outline:none;box-sizing:border-box;font-family:inherit}
+.input-field.textarea{resize:vertical;min-height:120px}
+.input-field:focus{border-color:#4CAF50;background:rgba(255,255,255,0.08);box-shadow:0 0 15px rgba(76,175,80,0.3)}
+.input-field::placeholder{color:rgba(255,255,255,0.6)}
+.submit-btn{width:100%;padding:1rem;background:linear-gradient(45deg,#4CAF50,#45a049);border:none;border-radius:8px;color:white;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px}
+.submit-btn:hover{background:linear-gradient(45deg,#45a049,#4CAF50);transform:translateY(-2px);box-shadow:0 8px 20px rgba(76,175,80,0.4)}
+@media (max-width:768px){
+.contact-main{flex-direction:column;gap:1.5rem}
+.contact-heading{font-size:1.75rem}
+.contact-subheading{font-size:1.25rem}
+.contact-btn{width:100%;justify-content:center}
+.contact-icon{width:4rem}
+.contact-info,.contact-form{padding:1.5rem}
+.form-heading{font-size:1.5rem}
 }
-/* contact css */
-.contact-section {
-  padding-top: 8em;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+@media (max-width:480px){
+.contact-section{padding:2rem 0.5rem}
+.contact-heading{font-size:1.5rem}
+.contact-subheading{font-size:1.1rem}
+.contact-info,.contact-form{padding:1rem}
+.form-heading{font-size:1.3rem}
 }
-
-.contact-container {
-  max-width: 90%;
-  margin: auto;
-  text-align: center;
-  padding: 1.5em;
-}
-
-.contact-heading {
-  font-size: 2.25em;
-  margin-bottom: 0.5em;
-  color: #222;
-}
-
-.contact-info {
-  background-color: #ffffff;
-  padding: 1.5em;
-  border-radius: 1.25em;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.contact-icon {
-  width: 5em;
-  margin-bottom: 1.25em;
-}
-
-.contact-subheading {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-  color: #333;
-}
-
-.contact-text {
-  font-size: 1em;
-  color: #666;
-  margin-bottom: 2em;
-  padding: 0 1em;
-}
-
-.contact-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  margin: 0.5em;
-  padding: 0.75em 1.5em;
-  color: white;
-  text-decoration: none;
-  border-radius: 2em;
-  font-size: 1em;
-  width: auto;
-  white-space: nowrap;
-}
-
-.email-btn {
-  background-color: #0073e6;
-}
-
-.whatsapp-btn {
-  background-color: #25D366;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .contact-heading {
-    font-size: 1.75em;
-  }
-
-  .contact-subheading {
-    font-size: 1.25em;
-  }
-
-  .contact-text {
-    font-size: 0.95em;
-  }
-
-  .contact-btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 0.95em;
-  }
-
-  .contact-icon {
-    width: 4em;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-section {
-    padding-top: 4em;
-  }
-
-  .contact-heading {
-    font-size: 1.5em;
-  }
-
-  .contact-subheading {
-    font-size: 1.1em;
-  }
-
-  .contact-btn {
-    font-size: 0.9em;
-    padding: 0.75em 1em;
-  }
-
-  .contact-container {
-    padding: 1em;
-  }
-}
-
 
 
     </style>
@@ -1183,7 +1103,7 @@
                 </div>
                 <div class="about-content">
                     <div class="about-img">
-                        <img src="photos/about mohit.jpg" alt="Mohit - Fitness Coach">
+                        <img src="photos/about mohit gibli.png" alt="Mohit - Fitness Coach">
                     </div>
                     <div class="about-text">
                         <h3>Meet Your Trainer</h3>
@@ -1409,34 +1329,101 @@
     </div>
 
     <!-- Contact Page -->
-    <div id="contact" class="page">
-    <section class="contact-section">
-  <div class="container contact-container">
-    <div class="section-title-about">
-      <h2 class="contact-heading">📬 Contact Us</h2>
-    </div>
-
+     <div id="contact" class="page">
+   <section class="contact-section">
+  <div class="contact-main">
     <div class="contact-info">
-      <img src="https://img.icons8.com/clouds/100/000000/new-post.png" alt="Email Icon" class="contact-icon" />
+      <h2 class="contact-heading">📬 Contact Us</h2>
+      <img src="https://img.icons8.com/clouds/100/000000/new-post.png" alt="Email Icon" class="contact-icon">
       <h3 class="contact-subheading">Get in Touch</h3>
-      <p class="contact-text">
-        Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!
-      </p>
-
+      <p class="contact-text">Ready to start your fitness journey? Have questions about our programs? Reach out to us directly!</p>
       <a href="mailto:fitlifebymohit@gmail.com?subject=Inquiry&body=Hello%2C%20I%20have%20a%20question%20about%20your%20services." class="contact-btn email-btn">
-        <img src="https://img.icons8.com/ios-filled/24/ffffff/new-post.png" alt="Mail Icon" />
-        Email Us
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/new-post.png" alt="Mail">Email Us
       </a>
-
       <a href="https://wa.me/918307998095?text=Hello%2C%20I%20am%20interested%20in%20your%20services" class="contact-btn whatsapp-btn" target="_blank">
-        <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp Icon" />
-        Chat on WhatsApp
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp">Chat on WhatsApp
       </a>
+    </div>
+    
+    <div class="contact-form">
+      <h2 class="form-heading">Get In Touch</h2>
+      <form>
+        <div class="input-group">
+          <input type="text" name="name" required placeholder="Your Name" class="input-field">
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" required placeholder="Your Email" class="input-field">
+        </div>
+        <div class="input-group">
+          <textarea name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
     </div>
   </div>
 </section>
 
+</div>
 
+
+<!-- EmailJS Scripts -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+(function(){
+    emailjs.init({
+        publicKey: "zqUtcZnNasYmDJNsv",
+    });
+})();
+
+function sendContactEmail(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const form = document.getElementById('contactForm');
+    
+    // Hide previous messages
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    // Disable button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.style.background = '#555';
+    submitBtn.style.cursor = 'not-allowed';
+    submitBtn.style.transform = 'none';
+    submitBtn.style.boxShadow = 'none';
+    
+    // Send email using EmailJS
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target)
+        .then(() => {
+            // Success
+            successMessage.style.display = 'block';
+            form.reset();
+            submitBtn.textContent = 'Message Sent!';
+            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            }, 3000);
+        })
+        .catch((error) => {
+            // Error
+            console.error('EmailJS Error:', error);
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            submitBtn.style.cursor = 'pointer';
+        });
+}
+</script>
     </div>
     <!-- certifications page -->
         <div id="certifications" class="page">
