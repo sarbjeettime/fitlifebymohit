@@ -1,5 +1,4 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,7 +102,8 @@
         .dropdown {
             position: relative;
         }
-        
+
+        /* Main dropdown content */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -114,9 +114,9 @@
             border-radius: 4px;
             top: 100%;
             left: 0;
-            margin-top: 10px;
+            margin-top: 0px;
         }
-        
+
         .dropdown-content a {
             color: var(--text);
             padding: 12px 16px;
@@ -124,16 +124,50 @@
             display: block;
             transition: all 0.3s;
         }
-        
+
         .dropdown-content a:hover {
             background-color: #f1f1f1;
             color: var(--primary);
         }
-        
-        .dropdown:hover .dropdown-content {
+
+        /* Show dropdown on hover (desktop) */
+        .dropdown:hover > .dropdown-content {
             display: block;
         }
-        
+
+        /* Nested dropdown for Pilates */
+        .dropdown-content .nav-link {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Hide nested dropdown by default */
+        .dropdown-content .dropdown-content {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: 0;
+            margin-top: 0;
+            min-width: 200px;
+            z-index: 2;
+        }
+
+        /* Show nested dropdown when hovering/clicking on Pilates */
+        .dropdown-content .nav-link:hover + .dropdown-content,
+        .dropdown-content .dropdown-content:hover {
+            display: block;
+        }
+
+        /* Optional: pointer for nested dropdown parent */
+        .dropdown-content .nav-link::after {
+            
+            font-size: 0.8em;
+            color: var(--primary);
+            float: right;
+            margin-left: 8px;
+        }
+
+        /* Responsive: show nested dropdown on click (mobile) */
         /* Mobile Nav Toggle */
         .menu-toggle {
             display: none;
@@ -149,6 +183,7 @@
             transition: 0.4s;
         }
         
+
         /* Hero Section with Video Background */
         .hero {
             position: relative;
@@ -233,29 +268,7 @@
             color: var(--primary);
         }
         
-        /* Video scroll effect classes */
-        .video-scroll-effect {
-            position: fixed;
-            top: auto;
-            bottom: 20px;
-            right: 20px;
-            width: 320px;
-            height: 180px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            z-index: 900;
-        }
-        
-        .video-scroll-effect #hero-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: none;
-            top: 0;
-            left: 0;
-        }
-        
+      
         /* Sections */
         section {
             padding: 80px 0;
@@ -577,12 +590,6 @@
                 font-size: 2.5rem;
             }
             
-            .video-scroll-effect {
-                width: 240px;
-                height: 135px;
-                bottom: 10px;
-                right: 10px;
-            }
         }
         
 /* css contact form */
@@ -600,10 +607,10 @@
 .email-btn{background:#0073e6}
 .whatsapp-btn{background:#25D366}
 .contact-form{background:rgba(0,0,0,0.8);border:1px solid #333;border-radius:15px;padding:2.5rem;backdrop-filter:blur(10px);box-shadow:0 15px 35px rgba(0,0,0,0.5)}
-.form-heading{color:#fff;text-align:center;margin-bottom:2rem;font-size:2rem;font-weight:300;letter-spacing:1px;margin-top:0}
+.form-heading{color:#fff;text-align:center;margin-bottom:1rem;font-size:2rem;font-weight:300;letter-spacing:1px;margin-top:0}
 .input-group{margin-bottom:1.5rem}
 .input-field{width:100%;padding:1rem 1.2rem;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:1rem;transition:all 0.3s;outline:none;box-sizing:border-box;font-family:inherit}
-.input-field.textarea{resize:vertical;min-height:120px}
+.input-field.textarea{resize:vertical;min-height:60px}
 .input-field:focus{border-color:#4CAF50;background:rgba(255,255,255,0.08);box-shadow:0 0 15px rgba(76,175,80,0.3)}
 .input-field::placeholder{color:rgba(255,255,255,0.6)}
 .submit-btn{width:100%;padding:1rem;background:linear-gradient(45deg,#4CAF50,#45a049);border:none;border-radius:8px;color:white;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px}
@@ -716,11 +723,7 @@
             const menuToggle = document.querySelector('.menu-toggle');
             const navLinksContainer = document.querySelector('.nav-links');
             
-            // Video scroll effect
-            const videoContainer = document.querySelector('.video-container');
-            const heroSection = document.querySelector('.hero');
-            
-            // Function to navigate to a page
+        
             function navigateToPage(pageId) {
                 // Hide all pages
                 pages.forEach(page => {
@@ -782,12 +785,16 @@
             if (window.innerWidth <= 768) {
                 dropdowns.forEach(dropdown => {
                     dropdown.addEventListener('click', function(e) {
-                        if (e.target.classList.contains('nav-link')) {
-                            e.preventDefault();
-                            this.classList.toggle('active');
-                        }
+                      // Only toggle if the clicked element is a nav-link or has a dropdown-content
+                      if (
+                        e.target.classList.contains('nav-link') ||
+                        e.target.nextElementSibling?.classList.contains('dropdown-content')
+                      ) {
+                        e.preventDefault();
+                        this.classList.toggle('active');
+                      }
                     });
-                });
+                  });
             }
             
             // Check for hash in URL on page load
@@ -830,18 +837,6 @@
                 });
             });
             
-            // Video scroll effect
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.scrollY;
-                const heroHeight = heroSection.offsetHeight;
-                
-                // Start transition when scrolled past 50% of hero section
-                if (scrollPosition > heroHeight * 0.5) {
-                    videoContainer.classList.add('video-scroll-effect');
-                } else {
-                    videoContainer.classList.remove('video-scroll-effect');
-                }
-            });
             
             // Add scroll animations
             const animatedElements = document.querySelectorAll('.service-card, .about-content, .program-content');
@@ -887,20 +882,32 @@
                 </div>
                 <ul class="nav-links">
                     <li class="nav-item"><a href="#home" class="nav-link" data-page="home">Home</a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link" data-page="about">About Us</a></li>
+                   
                     <li class="nav-item dropdown">
-                        <a href="#programs" class="nav-link">Programs</a>
-                        <div class="dropdown-content">
+                    <a href="#programs" class="nav-link">Programs</a>
+                    <div class="dropdown-content">
                             <a href="#weight-loss" data-page="weight-loss">Weight Loss</a>
-                            <a href="#weight-gain" data-page="weight-gain">Weight Gain</a>
-                            <a href="#pilates" data-page="pilates">Pilates</a>
+                            <a href="#weight-gain" data-page="Muscle-gain">Weight Gain</a>
+                            
+                                <a href="#pilates" class="nav-link">Pilates</a>
+                                <div class="dropdown-content" style="left: 100%; top: 0; margin-top: 0;">
+                                    <a href="#mat-pilates" data-page="mat-pilates">Mat Pilates</a>
+                                    <a href="#reformer-pilates" data-page="reformer-pilates">Reformer Pilates</a>
+                                    <a href="#chair-pilates" data-page="chair-pilates">Chair Pilates</a>
+                                    <a href="#motr-pilates" data-page="motr-pilates">Motr Pilates</a>
+                                </div>
+                            
                             <a href="#functional" data-page="functional">Functional Training</a>
+                             <a href="#strength-conditioning" data-page="strength-conditioning">Strength & Conditioning</a>
+                             <a href="#prehab-rehab" data-page="prehab-rehab">Prehab & Rehab</a>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="#virtual" class="nav-link" data-page="virtual">Virtual Sessions</a></li>
-                    <li class="nav-item"><a href="#fitness-at-home" class="nav-link" data-page="fitness-at-home">Fitness At-Home</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+                   
+                    <li class="nav-item"><a href="#fitness-at-home" class="nav-link" data-page="fitness-at-home">Home Training</a></li>
+                     <li class="nav-item"><a href="#diet-plan" class="nav-link" data-page="diet-plan">Diet-Plan</a></li>
                     <li class="nav-item"><a href="#certifications" class="nav-link" data-page="certifications">certifications</a></li>
+                     <li class="nav-item"><a href="#about" class="nav-link" data-page="about">About Us</a></li>
+                     <li class="nav-item"><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
                 </ul>
                 <button id="theme-toggle" aria-label="Toggle dark mode" style="margin-left:20px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:#fff;">
   🌙
@@ -922,9 +929,12 @@
             </div>
             <div class="container">
                 <div class="hero-content">
-                    <h1>Transform Your Body, Transform Your Life</h1>
-                    <p>Join FitLife by Mohit to achieve your fitness goals with personalized training plans and expert guidance.</p>
-                    <a href="#contact" class="cta-btn">Start Your Journey</a>
+                    <h1>Transforming Lives, One Rep at at time</h1>
+                   
+                    <a href="#contact" class="cta-btn">Schedule a Trial Session now</a>
+                    
+                    <p style="margin-top: 2%;">Let's Crush your fitness goals together</p>
+                    
                 </div>
             </div>
         </section>
@@ -1084,20 +1094,32 @@
                             <img src="photos/fitness at home.jpg" alt="Fitness At-Home">
                         </div>
                         <div class="service-content">
-                            <h3>Fitness At-Home</h3>
+                            <h3>Home Training</h3>
                             <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
                         </div>
                     </div></a>
+                    <a href="#couple-group-training"class="link" data-page="couple-group-training"> <div class="service-card">
+                        <div class="service-img">
+                            <img src="photos/couple-group.jpg" alt="Couple and Group Training">
+                        </div>
+                        <div class="service-content">
+                            <h3>Couple/Group Training</h3>
+                            <p>Train together—couples and groups thrive under the expert guidance of certified fitness professionals.</p>
+                        </div>
+                    </div></a>
+                    
                 </div>
             </div>
         </section>
     </div>
+
 
     <!-- Rest of the pages remain the same... -->
     <!-- About Page -->
     <div id="about" class="page">
         <section style="padding-top: 120px;">
             <div class="container">
+                
                 <div class="section-title">
                     <h2>About Us</h2>
                 </div>
@@ -1114,7 +1136,77 @@
                             <p>I hold a certification as a Personal Trainer from K11 School of Fitness, Pune Maharashtra. Where I have been trained in creating personal programs, understanding anatomy and exercise physiology, and implementing effective training techniques. This certification equips me with the knowledge and skills to help you reach your fitness goals safely and efficiently.</p>
                             <p>Here you can have a look at the certification docs below.</p>
                             <div style="margin-top: 15px;">
-                                <!-- <img src="/api/placeholder/300/200" alt="Certification Document" style="max-width: 100%; border-radius: 4px;"> -->
+                            <div style="max-width: 400px; margin: 0 auto;">
+                                <div style="text-align:center; margin-bottom: 12px; position: relative;">
+                                    <span style="background: #fff; color: #2982ff; font-weight: 600; padding: 0 16px; position: relative; z-index: 2; font-size: 1.1rem; letter-spacing: 1px;">Join Us</span>
+                                    <div style="height: 1.5px; background: linear-gradient(90deg, #2982ff 0%, #dc2743 100%); position: absolute; left: 0; right: 0; top: 50%; z-index: 1;"></div>
+                                </div>
+                                <div class="social-btns-responsive">
+                                    <a href="https://www.instagram.com/fitlifebymohit" target="_blank" class="social-btn instagram-btn">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/ffffff/instagram-new.png" alt="Instagram">
+                                        Instagram
+                                    </a>
+                                    <a href="https://www.youtube.com/@moh--it" target="_blank" class="social-btn youtube-btn">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/ffffff/youtube-play.png" alt="YouTube">
+                                        YouTube
+                                    </a>
+                                    <a href="https://wa.me/918377949587" target="_blank" class="social-btn whatsapp-btn">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/ffffff/whatsapp.png" alt="WhatsApp">
+                                        WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                            <style>
+                                .social-btns-responsive {
+                                    display: flex;
+                                    gap: 10px;
+                                    justify-content: center;
+                                    flex-wrap: wrap;
+                                }
+                                .social-btn {
+                                    text-decoration: none;
+                                    padding: 10px 20px;
+                                    border-radius: 25px;
+                                    color: white;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    font-weight: 500;
+                                    font-size: 1rem;
+                                    transition: transform 0.3s, box-shadow 0.3s;
+                                    box-shadow: 0 2px 8px rgba(41,130,255,0.08);
+                                    margin-bottom: 0;
+                                }
+                                .social-btn img {
+                                    width: 24px;
+                                    height: 24px;
+                                }
+                                .instagram-btn {
+                                    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+                                }
+                                .youtube-btn {
+                                    background: #FF0000;
+                                }
+                                .whatsapp-btn {
+                                    background: #25D366;
+                                }
+                                .social-btn:hover {
+                                    transform: translateY(-2px) scale(1.04);
+                                    box-shadow: 0 4px 16px rgba(41,130,255,0.12);
+                                }
+                                @media (max-width: 600px) {
+                                    .social-btns-responsive {
+                                        flex-direction: column;
+                                        align-items: stretch;
+                                        gap: 12px;
+                                    }
+                                    .social-btn {
+                                        justify-content: center;
+                                        width: 100%;
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            </style>
                             </div>
                         </div>
                     </div>
@@ -1125,51 +1217,95 @@
     
     <!-- Programs - base -->
     <div id="programs" class="page">
-        <section style="padding-top: 120px;">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Our Programs</h2>
+       <section style="padding-top: 120px;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Programs</h2>
+        </div>
+        <div class="programs-grid">
+
+            <!-- Weight Gain -->
+            <a href="#weight-gain" class="link" data-page="weight-gain">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/personal training.jpg" alt="Personal Training">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Weight-Gain</h3>
+                        <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
+                    </div>
                 </div>
-                <div class="programs-grid">
-                  <a href="#weight-gain" class="link"data-page="weight-gain">  <div class="programs-card">
-                        <div class="programs-img">
-                            <img src="photos/personal training.jpg" alt="Personal Training">
-                        </div>
-                        <div class="programs-content">
-                            <h3>weight-gain</h3>
-                            <p>Customized workout plans designed specifically for your fitness level and goals by certified trainers.</p>
-                        </div>
-                    </div></a>
-                  <a href="#weight-loss" class="link"data-page="weight-loss">   <div class="programs-card">
-                        <div class="programs-img">
-                            <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
-                        </div>
-                        <div class="programs-content">
-                            <h3>Weight-Loss</h3>
-                            <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
-                        </div>
-                    </div></a>
-                   <a href="#pilates"class="link" data-page="pilates"> <div class="programs-card">
-                        <div class="programs-img">
-                            <img src="photos/pilates.jpg" alt="Fitness At-Home">
-                        </div>
-                        <div class="programs-content">
-                            <h3>Pilates</h3>
-                            <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
-                        </div>
-                    </div> </a>
-                   <a href="#functional" class="link"data-page="functional">  <div class="programs-card">
-                        <div class="programs-img">
-                            <img src="photos/functional_training.jpg" alt="Fitness At-Home">
-                        </div>
-                        <div class="programs-content">
-                            <h3>Functional training</h3>
-                            <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
-                        </div>
-                    </div> </a>
+            </a>
+
+            <!-- Weight Loss -->
+            <a href="#weight-loss" class="link" data-page="weight-loss">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/virtual sessions.jpg" alt="Virtual Sessions">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Weight-Loss</h3>
+                        <p>Train from anywhere with live online sessions tailored to your schedule and fitness needs.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </a>
+
+            <!-- Pilates -->
+            <a href="#pilates" class="link" data-page="pilates">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/pilates.jpg" alt="Pilates">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Pilates</h3>
+                        <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Functional Training -->
+            <a href="#functional" class="link" data-page="functional">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/functional_training.jpg" alt="Functional Training">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Functional Training</h3>
+                        <p>Get expert guidance and workout plans that you can follow from the comfort of your home.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Strength & Conditioning -->
+            <a href="#strength-conditioning" class="link" data-page="strength-conditioning">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/strength-conditioning.jpg" alt="Strength and Conditioning">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Strength & Conditioning</h3>
+                        <p>Enhance performance, build power, and improve endurance with expert-led strength and conditioning programs.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Prehab & Rehab -->
+            <a href="#prehab-rehab" class="link" data-page="prehab-rehab">
+                <div class="programs-card">
+                    <div class="programs-img">
+                        <img src="photos/prehab-rehab.jpg" alt="Prehab and Rehab">
+                    </div>
+                    <div class="programs-content">
+                        <h3>Prehab & Rehab</h3>
+                        <p>Prevent injuries and recover faster with targeted exercises focused on mobility, stability, and healing.</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
     </div>
 
     <!-- Other pages remain the same... -->
@@ -1234,8 +1370,12 @@
                     <h2>Pilates Program</h2>
                 </div>
                 <div class="program-content">
-                  <div>  <img src="photos/pilates.jpg" alt="Pilates Program" style="width: 50%; border-radius: 8px; margin-bottom: 30px;">
-                   </div>
+                  <div>  
+
+                    <img src="photos/pilates.jpg" alt="Pilates Program" class="program-content-img">
+                  
+                </div>
+
                 <div><h3>Core Strength and Flexibility</h3>
                     <p>Our Pilates program focuses on developing core strength, improving posture, and enhancing overall body flexibility. Through controlled movements and proper breathing techniques, Pilates helps create a strong foundation for all physical activities while promoting mind-body awareness.</p>
                     <h4>Program Benefits:</h4>
@@ -1247,9 +1387,79 @@
                         <li>Stress reduction and improved mental focus</li>
                     </ul>
                     <a href="#contact" class="cta-btn">Enroll Now</a>
-                </div> </div>
+                </div>
+            
             </div>
-        </section>
+            </div>
+
+
+    
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pilates Programs</h2>
+            </div>
+            <div class="programs-grid">
+
+                <!-- Mat Pilates -->
+                <a href="#mat-pilates" class="link" data-page="mat-pilates">
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/mat-pilates.jpg" alt="Mat Pilates">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Mat Pilates</h3>
+                            <p>Enhance your core strength and posture with bodyweight routines using just a mat—perfect for all levels.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Reformer Pilates -->
+                <a href="#reformer-pilates" class="link" data-page="reformer-pilates">
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/reformer-pilates.jpg" alt="Reformer Pilates">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Reformer Pilates</h3>
+                            <p>Train with precision and resistance using the Reformer machine to improve strength, flexibility, and alignment.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Chair Pilates -->
+                <a href="#chair-pilates" class="link" data-page="chair-pilates">
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/chair-pilates.jpg" alt="Chair Pilates">
+                        </div>
+                        <div class="programs-content">
+                            <h3>Chair Pilates</h3>
+                            <p>Focus on balance, coordination, and muscle control using a Pilates chair for targeted functional movement.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- MOTR Pilates -->
+                <a href="#motr-pilates" class="link" data-page="motr-pilates">
+                    <div class="programs-card">
+                        <div class="programs-img">
+                            <img src="photos/motr-pilates.jpg" alt="MOTR Pilates">
+                        </div>
+                        <div class="programs-content">
+                            <h3>MOTR Pilates</h3>
+                            <p>Combine Pilates, cardio, and balance training on the MOTR device for a dynamic and complete full-body workout.</p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+
+ </section>
     </div>
 
     <!-- Programs - Functional Training -->
@@ -1308,7 +1518,7 @@
         <section style="padding-top: 120px;">
             <div class="container">
                 <div class="section-title">
-                    <h2>Fitness At-Home</h2>
+                    <h2>Home training</h2>
                 </div>
                 <div class="program-content">
                    <div> <img src="photos/fitness at home.jpg" alt="Home Fitness" class="program-content-img">
@@ -1327,6 +1537,235 @@
             </div>
         </section>
     </div>
+    <!-- Diet Plan -->
+<div id="diet-plan" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Diet Plan</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/diet-plan.jpg" alt="Personalized Diet Plan" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Fuel Your Fitness with the Right Nutrition</h3>
+                    <p>Our Diet Plan program is designed to complement your fitness journey by providing personalized meal strategies tailored to your goals. Whether it's weight loss, muscle gain, or general wellness—we’ve got your nutrition covered.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Customized meal plans based on your body type and goals</li>
+                        <li>Flexible vegetarian and non-vegetarian options</li>
+                        <li>Guidance on portion control and macronutrients</li>
+                        <li>Easy-to-follow recipes and grocery lists</li>
+                        <li>Regular nutrition coaching and adjustments</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Get Your Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <!-- Couple and Group Training -->
+<div id="couple-group-training" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Couple and Group Training</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/couple-group.jpg" alt="Couple and Group Fitness" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Train Together, Grow Stronger</h3>
+                    <p>Our Couple and Group Training program is designed to boost motivation, accountability, and results by working out with your partner or friends. Strengthen bonds while building healthier bodies—together!</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Customized workouts for pairs or small groups</li>
+                        <li>Team-building fitness challenges</li>
+                        <li>Fun and dynamic partner exercises</li>
+                        <li>Flexible scheduling to suit group availability</li>
+                        <li>Progress tracking for individuals and teams</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Join the Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Strength & Conditioning -->
+<div id="strength-conditioning" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Strength & Conditioning</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/strength-conditioning.jpg" alt="Strength and Conditioning" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Build Power, Endurance & Athleticism</h3>
+                    <p>Our Strength & Conditioning program focuses on developing core strength, explosive power, and cardiovascular endurance. Ideal for athletes and fitness enthusiasts aiming for peak performance and injury prevention.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Tailored strength training for all fitness levels</li>
+                        <li>Cardio and metabolic conditioning workouts</li>
+                        <li>Mobility, agility, and injury-prevention drills</li>
+                        <li>Performance tracking and progress analytics</li>
+                        <li>Expert coaching and small group training options</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Start Your Training</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Prehab & Rehab -->
+<div id="prehab-rehab" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Prehab & Rehab</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/prehab-rehab.jpg" alt="Prehab and Rehab Program" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Prevent Injuries, Recover Smarter</h3>
+                    <p>Our Prehab & Rehab program is designed to enhance joint stability, improve mobility, and speed up recovery. Whether you're managing an injury or preventing one, this program supports safe, sustainable movement and healing.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Injury-specific recovery protocols</li>
+                        <li>Mobility and flexibility training</li>
+                        <li>Strengthening of weak or imbalanced muscles</li>
+                        <li>Prehabilitation for athletes and active individuals</li>
+                        <li>Supervision from certified recovery specialists</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Rebuild Stronger</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Mat Pilates -->
+<div id="mat-pilates" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mat Pilates</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/mat-pilates.jpg" alt="Mat Pilates" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Strength, Stability & Control</h3>
+                    <p>Mat Pilates focuses on controlled movements using body weight to build strength, improve posture, and enhance flexibility. Perfect for beginners and seasoned practitioners alike.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Bodyweight-focused core workouts</li>
+                        <li>Improves balance and flexibility</li>
+                        <li>Enhances posture and body alignment</li>
+                        <li>Minimal equipment needed</li>
+                        <li>Great for at-home or studio sessions</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Join Mat Pilates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Reformer Pilates -->
+<div id="reformer-pilates" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Reformer Pilates</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/reformer-pilates.jpg" alt="Reformer Pilates" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Dynamic Resistance, Enhanced Results</h3>
+                    <p>Reformer Pilates uses a specialized machine to add resistance and support, offering a full-body workout that improves strength, flexibility, and precision.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Full-body resistance training</li>
+                        <li>Adjustable springs for customized intensity</li>
+                        <li>Improves posture and core stability</li>
+                        <li>Ideal for rehabilitation and performance</li>
+                        <li>Low-impact yet highly effective</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Try Reformer Pilates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Chair Pilates -->
+<div id="chair-pilates" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Chair Pilates</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/chair-pilates.jpg" alt="Chair Pilates" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Compact Power, Focused Strength</h3>
+                    <p>Chair Pilates provides a challenging workout using a Pilates chair, helping to improve muscle tone, coordination, and functional strength in a compact format.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Targets upper and lower body together</li>
+                        <li>Great for balance and stability</li>
+                        <li>Efficient in small spaces</li>
+                        <li>Strengthens core and limbs simultaneously</li>
+                        <li>Adjustable resistance levels</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Explore Chair Pilates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+ 
+<!-- MOTR Pilates -->
+<div id="motr-pilates" class="page">
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>MOTR Pilates</h2>
+            </div>
+            <div class="program-content">
+                <div>
+                    <img src="photos/motr-pilates.jpg" alt="MOTR Pilates" class="program-content-img">
+                </div>
+                <div>
+                    <h3>Versatile Training, Maximum Mobility</h3>
+                    <p>MOTR (Movement on the Roller) Pilates combines balance, resistance, and coordination training into one sleek device—perfect for full-body workouts and functional movement.</p>
+                    <h4>Program Features:</h4>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>Combines foam roller and resistance training</li>
+                        <li>Improves coordination and dynamic strength</li>
+                        <li>Portable and space-efficient equipment</li>
+                        <li>Customizable for all fitness levels</li>
+                        <li>Great for sport-specific training and rehab</li>
+                    </ul>
+                    <a href="#contact" class="cta-btn">Start MOTR Pilates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
 
     <!-- Contact Page -->
      <div id="contact" class="page">
@@ -1351,8 +1790,14 @@
         <div class="input-group">
           <input type="text" name="name" required placeholder="Your Name" class="input-field">
         </div>
+          <div class="input-group">
+          <input type="text" name="phone" required placeholder="phone no" class="input-field">
+        </div>
         <div class="input-group">
           <input type="email" name="email" required placeholder="Your Email" class="input-field">
+        </div>
+        <div class="input-group">
+          <input type="date" name="preferred_date" required placeholder="Preferred Date" class="input-field">
         </div>
         <div class="input-group">
           <textarea name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
@@ -1367,64 +1812,9 @@
 
 
 <!-- EmailJS Scripts -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script type="text/javascript">
-(function(){
-    emailjs.init({
-        publicKey: "zqUtcZnNasYmDJNsv",
-    });
-})();
 
-function sendContactEmail(e) {
-    e.preventDefault();
-    
-    const submitBtn = document.getElementById('submitBtn');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const form = document.getElementById('contactForm');
-    
-    // Hide previous messages
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    
-    // Disable button and show loading state
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.style.background = '#555';
-    submitBtn.style.cursor = 'not-allowed';
-    submitBtn.style.transform = 'none';
-    submitBtn.style.boxShadow = 'none';
-    
-    // Send email using EmailJS
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target)
-        .then(() => {
-            // Success
-            successMessage.style.display = 'block';
-            form.reset();
-            submitBtn.textContent = 'Message Sent!';
-            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-            
-            // Reset button after 3 seconds
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-                submitBtn.style.cursor = 'pointer';
-                submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-            }, 3000);
-        })
-        .catch((error) => {
-            // Error
-            console.error('EmailJS Error:', error);
-            errorMessage.style.display = 'block';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-            submitBtn.style.cursor = 'pointer';
-        });
-}
-</script>
-    </div>
+
     <!-- certifications page -->
         <div id="certifications" class="page">
                 <section style="padding-top: 10dvh;">
@@ -1437,363 +1827,73 @@ function sendContactEmail(e) {
 
 <!-- Coverflow Slider Styling -->
 <style>
-    .coverflow-slider {
-        width: 100%;
-        max-width: 1200px;
-        padding: 30px 0;
-        margin: 0 auto;
-        overflow: visible;
-        position: relative;
-    }
-
-    .coverflow-slide {
-        width: 300px;
-        height: 400px;
-        border-radius: 15px;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden;
-        opacity: 0.7;
-        transform: scale(0.8);
-        cursor: pointer;
-        background: #fff;
-    }
-
-    .coverflow-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: inherit;
-        transition: transform 0.3s ease;
-    }
-
-    .swiper-slide-active .coverflow-slide {
-        transform: scale(1.1);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        opacity: 1;
-    }
-    
-    /* Fullscreen Modal */
-    .coverflow-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.9);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .coverflow-modal.active {
-        display: flex;
-        opacity: 1;
-    }
-    
-    .coverflow-modal-content {
-        max-width: 90vw;
-        max-height: 65vh;
-    }
-    
-    .coverflow-modal-content img {
-        max-width: 80vw;
-        max-height: 60vh;
-        object-fit: contain;
-    }
-    
-    .coverflow-close {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        z-index: 10000;
-    }
-
-    .coverflow-nav-next,
-    .coverflow-nav-prev {
-        color: #333;
-        background: rgba(255, 255, 255, 0.8);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 0.3s ease;
-    }
-
-    .coverflow-nav-next:hover,
-    .coverflow-nav-prev:hover {
-        background: white;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .coverflow-pagination .swiper-pagination-bullet {
-        width: 12px;
-        height: 12px;
-        background: #333;
-        opacity: 0.5;
-        transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .coverflow-pagination .swiper-pagination-bullet-active {
-        background: #007aff;
-        opacity: 1;
-        transform: scale(1.2);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-        .coverflow-slide {
-            width: 220px;
-            height: 300px;
-        }
-    }
-    @media (max-width: 600px) {
-        .coverflow-slider {
-            padding: 10px 0;
-            max-width: 100%;
-            overflow: hidden;
-        }
-        .coverflow-slide {
-            width: 280px;
-            max-width: 90%;
-            height: 160px;
-            min-width: 0;
-            min-height: 0;
-            margin: 0 auto;
-        }
-        .coverflow-modal-content {
-            max-width: 98vw;
-            max-height: 80vh;
-        }
-        .coverflow-modal-content img {
-            max-width: 98vw;
-            max-height: 80vh;
-        }
-        .coverflow-nav-next,
-        .coverflow-nav-prev {
-            width: 38px;
-            height: 38px;
-            font-size: 18px;
-        }
-    }
-    @media (max-width: 400px) {
-        .coverflow-slide {
-            width: 98vw;
-            height: 120px;
-        }
-    }
+body{margin:0;background:#f7f7f7;}
+#certifications{padding:5vh 0;}
+.section-title h2{text-align:center;text-transform:capitalize;}
+.swiper{max-width:900px;margin:0 auto;}
+.swiper-slide{display:flex;justify-content:center;align-items:center;}
+.certificate-img{max-width:95vw;max-height:60vh;object-fit:contain;border-radius:12px;box-shadow:0 4px 24px #0002;cursor:pointer;background:#fff;}
+@media(max-width:600px){.certificate-img{max-height:40vh;}}
+.coverflow-modal{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000c;z-index:99;justify-content:center;align-items:center;}
+.coverflow-modal.active{display:flex;}
+.coverflow-modal img{max-width:98vw;max-height:90vh;object-fit:contain;border-radius:12px;}
+.coverflow-close{position:absolute;top:20px;right:30px;color:#fff;font-size:2rem;cursor:pointer;}
+.swiper-button-next,.swiper-button-prev{color:#333;}
 </style>
 
 <!-- Coverflow Slider HTML -->
-<div class="coverflow-slider swiper" role="region" aria-label="3D Image Carousel">
-    <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert1.jpg">
-                <img src="cert/cert1.jpg" alt="Certificate 1" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert2.jpg">
-                <img src="cert/cert2.jpg" alt="Certificate 2" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert3.jpg">
-                <img src="cert/cert3.jpg" alt="Certificate 3" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert4.jpg">
-                <img src="cert/cert4.jpg" alt="Certificate 4" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert5.jpg">
-                <img src="cert/cert5.jpg" alt="Certificate 5" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert6.jpg">
-                <img src="cert/cert6.jpg" alt="Certificate 6" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert7.jpg">
-                <img src="cert/cert7.jpg" alt="Certificate 7" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert8.jpg">
-                <img src="cert/cert8.jpg" alt="Certificate 8" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="coverflow-slide" data-img="cert/cert9.jpg">
-                <img src="cert/cert9.jpg" alt="Certificate 9" />
-            </div>
-        </div>
-    </div>
-    
-    <!-- Fullscreen Modal -->
-    
 
-    <!-- Controls -->
-    <div class="swiper-button-next coverflow-nav-next" aria-label="Next slide"></div>
-    <div class="swiper-button-prev coverflow-nav-prev" aria-label="Previous slide"></div>
-    <div class="swiper-pagination coverflow-pagination" role="navigation" aria-label="Slider pagination"></div>
-</div>
-<div class="coverflow-modal">
-        <span class="coverflow-close">&times;</span>
-        <div class="coverflow-modal-content">
-            <img src="" alt="Fullscreen Image" />
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert1.jpg" alt="Certificate 1" data-orient="landscape"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert2.jpg" alt="Certificate 2" data-orient="portrait"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert3.jpg" alt="Certificate 3" data-orient="landscape"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert4.jpg" alt="Certificate 4" data-orient="portrait"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert5.jpg" alt="Certificate 5" data-orient="landscape"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert6.jpg" alt="Certificate 6" data-orient="portrait"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert7.jpg" alt="Certificate 7" data-orient="landscape"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert8.jpg" alt="Certificate 8" data-orient="portrait"></div>
+            <div class="swiper-slide"><img class="certificate-img" src="cert/cert9.jpg" alt="Certificate 9" data-orient="landscape"></div>
         </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
     </div>
+    <div class="coverflow-modal"><span class="coverflow-close">&times;</span><img src="" alt="Fullscreen"/></div>
 <!-- Add this before your closing body tag if not already there -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.3.2/swiper-bundle.min.js"></script>
 
 <!-- Coverflow Slider Initialization -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize Swiper
-        const coverflow = new Swiper('.coverflow-slider', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 3,
-            loop: true,
-            initialSlide: 0,
-            speed: 1000,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
-            coverflowEffect: {
-                rotate: 30,
-                stretch: 0,
-                depth: 100,
-                modifier: 1.5,
-                slideShadows: false,
-                scale: 0.85
-            },
-            pagination: {
-                el: '.coverflow-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.coverflow-nav-next',
-                prevEl: '.coverflow-nav-prev',
-            },
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                    spaceBetween: 8
-                },
-                400: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                600: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 12
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 18
-                },
-                900: {
-                    slidesPerView: 3,
-                    spaceBetween: 24
-                }
-            }
-        });
-        
-        // Fullscreen functionality
-        const modal = document.querySelector('.coverflow-modal');
-        const modalImg = modal.querySelector('img');
-        const closeBtn = document.querySelector('.coverflow-close');
-        
-        // Open modal on slide click
-        document.querySelectorAll('.coverflow-slide').forEach(slide => {
-            slide.addEventListener('click', function() {
-                const imgSrc = this.getAttribute('data-img');
-                modalImg.src = imgSrc;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            });
-        });
-        
-        // Close modal
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // Re-enable scrolling
-        });
-        
-        // Close modal on outside click
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Close modal with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Direction-based hover functionality (desktop only)
-        const sliderEl = document.querySelector('.coverflow-slider');
-        let autoplayDirection = 'right';
-        function isTouchDevice() {
-            return 'ontouchstart' in window || navigator.maxTouchPoints;
-        }
-        if (!isTouchDevice()) {
-            sliderEl.addEventListener('mousemove', function(e) {
-                const sliderRect = this.getBoundingClientRect();
-                const sliderCenter = sliderRect.left + (sliderRect.width / 2);
-                if (e.clientX > sliderCenter) {
-                    // Right side
-                    if (autoplayDirection !== 'right') {
-                        autoplayDirection = 'right';
-                        coverflow.autoplay.stop();
-                        coverflow.params.autoplay.reverseDirection = false;
-                        coverflow.autoplay.start();
-                    }
-                } else {
-                    // Left side
-                    if (autoplayDirection !== 'left') {
-                        autoplayDirection = 'left';
-                        coverflow.autoplay.stop();
-                        coverflow.params.autoplay.reverseDirection = true;
-                        coverflow.autoplay.start();
-                    }
-                }
-            });
-            sliderEl.addEventListener('mouseleave', function() {
-                autoplayDirection = 'right';
-                coverflow.autoplay.stop();
-                coverflow.params.autoplay.reverseDirection = false;
-                coverflow.autoplay.start();
-            });
-        }
-    });
-</script>      </div>
+const swiper = new Swiper('.swiper', {
+    effect: 'coverflow',
+    centeredSlides: true,
+    slidesPerView: 1.2,
+    loop: true,
+    speed: 700,
+    initialSlide: 1,
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+    },
+    coverflowEffect: { rotate: 20, depth: 80, modifier: 1.2, slideShadows: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    breakpoints: { 600: { slidesPerView: 2 }, 900: { slidesPerView: 3 } }
+});
+const modal = document.querySelector('.coverflow-modal'), modalImg = modal.querySelector('img');
+document.querySelectorAll('.certificate-img').forEach(img => img.onclick = () => {
+    modalImg.src = img.src;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+});
+document.querySelector('.coverflow-close').onclick = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+};
+modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } };
+document.onkeydown = e => { if (e.key === 'Escape') { modal.classList.remove('active'); document.body.style.overflow = ''; } };
+</script>
         </section>
     </div>
 
