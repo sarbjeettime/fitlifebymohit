@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitLife by Mohit</title>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "NNB9ii67rk8--72s7",
+      });
+   })();
+</script>
+<script>
+    function sendEmail() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        const phone = document.getElementById('phone').value;
+        const preferred_date = document.getElementById('preferred_date').value;
+
+        if (!name || !email || !message || !phone || !preferred_date) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        emailjs.send("service_p0jmn58", "template_elzug1n", {
+            from_name: name,
+            from_email: email,
+            message: message,
+            phone: phone,
+            preferred_date: preferred_date
+        })
+        .then(function(response) {
+            alert('Email sent successfully!');
+            document.getElementById('contact-form').reset();
+        }, function(error) {
+            alert('Failed to send email. Please try again later.');
+        });
+    }
+</script>
     <style>
         :root {
             --primary: #2982ff;
@@ -181,6 +219,54 @@
             background-color: white;
             margin: 3px 0;
             transition: 0.4s;
+        }
+           /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 110px;
+                left: -100%;
+                background-color: var(--secondary);
+                width: 100%;
+                flex-direction: column;
+                transition: 0.3s;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+                text-align: center;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+                margin-top: 10px;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
         }
         
 
@@ -543,55 +629,7 @@
             }
         }
         
-        /* Responsive Styles */
-        @media screen and (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                background-color: var(--secondary);
-                width: 100%;
-                flex-direction: column;
-                transition: 0.3s;
-                padding: 20px 0;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-links.active {
-                left: 0;
-            }
-            
-            .nav-item {
-                margin: 10px 0;
-                text-align: center;
-            }
-            
-            .dropdown-content {
-                position: static;
-                display: none;
-                width: 100%;
-                box-shadow: none;
-                margin-top: 10px;
-            }
-            
-            .dropdown.active .dropdown-content {
-                display: block;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-        }
-        
+     
 /* css contact form */
 
 .contact-section{padding:4rem 1rem;font-family:'Segoe UI',sans-serif;background:#f4f6f8}
@@ -1867,27 +1905,28 @@
       </a>
     </div>
     
-    <div class="contact-form">
-      <h2 class="form-heading">Get In Touch</h2>
-      <form>
-        <div class="input-group">
-          <input type="text" name="name" required placeholder="Your Name" class="input-field">
-        </div>
-          <div class="input-group">
-          <input type="text" name="phone" required placeholder="phone no" class="input-field">
-        </div>
-        <div class="input-group">
-          <input type="email" name="email" required placeholder="Your Email" class="input-field">
-        </div>
-        <div class="input-group">
-          <input type="date" name="preferred_date" required placeholder="Preferred Date" class="input-field">
-        </div>
-        <div class="input-group">
-          <textarea name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Send Message</button>
-      </form>
+  <div class="contact-form">
+  <h2 class="form-heading">Get In Touch</h2>
+  <form id="contact-form">
+    <div class="input-group">
+      <input type="text" id="name" name="name" required placeholder="Your Name" class="input-field">
     </div>
+    <div class="input-group">
+      <input type="text" id="phone" name="phone" required placeholder="Phone No" class="input-field">
+    </div>
+    <div class="input-group">
+      <input type="email" id="email" name="email" required placeholder="Your Email" class="input-field">
+    </div>
+    <div class="input-group">
+      <input type="date" id="preferred_date" name="preferred_date" required placeholder="Preferred Date" class="input-field">
+    </div>
+    <div class="input-group">
+      <textarea id="message" name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
+    </div>
+    <button type="submit" class="submit-btn" onclick="sendEmail(); return false;">Send Message</button>
+  </form>
+</div>
+
   </div>
 </section>
 
@@ -1910,19 +1949,87 @@
 
 <!-- Coverflow Slider Styling -->
 <style>
-body{margin:0;background:#f7f7f7;}
-#certifications{padding:5vh 0;}
-.section-title h2{text-align:center;text-transform:capitalize;}
-.swiper{max-width:900px;margin:0 auto;}
-.swiper-slide{display:flex;justify-content:center;align-items:center;}
-.certificate-img{max-width:95vw;max-height:60vh;object-fit:contain;border-radius:12px;box-shadow:0 4px 24px #0002;cursor:pointer;background:#fff;}
-@media(max-width:600px){.certificate-img{max-height:40vh;}}
-.coverflow-modal{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000c;z-index:99;justify-content:center;align-items:center;}
-.coverflow-modal.active{display:flex;}
-.coverflow-modal img{max-width:98vw;max-height:90vh;object-fit:contain;border-radius:12px;}
-.coverflow-close{position:absolute;top:20px;right:30px;color:#fff;font-size:2rem;cursor:pointer;}
-.swiper-button-next,.swiper-button-prev{color:#333;}
+  body {
+    margin: 0;
+    background: #f7f7f7;
+  }
+
+  #certifications {
+    padding: 5vh 0;
+  }
+
+  .section-title h2 {
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .swiper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .certificate-img {
+    max-width: 95vw;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px #0002;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .certificate-img {
+      max-height: 40vh;
+    }
+  }
+
+  .coverflow-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000c;
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+  }
+
+  .coverflow-modal.active {
+    display: flex;
+  }
+
+  .coverflow-modal img {
+    max-width: 98vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+
+  .coverflow-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #333;
+  }
 </style>
+
 
 <!-- Coverflow Slider HTML -->
 
