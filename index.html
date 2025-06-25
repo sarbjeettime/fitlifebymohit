@@ -470,7 +470,7 @@
         /* Services Section */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
         }
         
@@ -1147,7 +1147,7 @@
                         </div>
                     </div></a>
 
-                    <a href="#kettlebell" class="link" data-page="kettlebell">
+                    <!-- <a href="#kettlebell" class="link" data-page="kettlebell">
     <div class="service-card">
         <div class="service-img">
             <img src="photos/kettlebell-specialist.jpg" alt="Kettlebell Training">
@@ -1169,7 +1169,7 @@
             <p>Recover stronger—personalized prehab-rehab programs tailored to help you regain mobility, strength, and confidence safely.</p>
         </div>
     </div>
-</a>
+</a> -->
 
                     
                 </div>
@@ -1905,27 +1905,27 @@
       </a>
     </div>
     
-  <div class="contact-form">
-  <h2 class="form-heading">Get In Touch</h2>
-  <form id="contact-form">
-    <div class="input-group">
-      <input type="text" id="name" name="name" required placeholder="Your Name" class="input-field">
-    </div>
-    <div class="input-group">
-      <input type="text" id="phone" name="phone" required placeholder="Phone No" class="input-field">
-    </div>
-    <div class="input-group">
-      <input type="email" id="email" name="email" required placeholder="Your Email" class="input-field">
-    </div>
-    <div class="input-group">
-      <input type="date" id="preferred_date" name="preferred_date" required placeholder="Preferred Date" class="input-field">
-    </div>
-    <div class="input-group">
-      <textarea id="message" name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
-    </div>
-    <button type="submit" class="submit-btn" onclick="sendEmail(); return false;">Send Message</button>
-  </form>
-</div>
+ <div class="contact-form">
+    <h2 class="form-heading">Get In Touch</h2>
+    <form id="contact-form">
+      <div class="input-group">
+        <input type="text" id="name" name="name" required placeholder="Your Name" class="input-field">
+      </div>
+      <div class="input-group">
+        <input type="text" id="phone" name="phone" required placeholder="Phone No" class="input-field">
+      </div>
+      <div class="input-group">
+        <input type="email" id="email" name="email" required placeholder="Your Email" class="input-field">
+      </div>
+      <div class="input-group">
+        <input type="date" id="preferred_date" name="preferred_date" required class="input-field">
+      </div>
+      <div class="input-group">
+        <textarea id="message" name="message" required placeholder="Your Message" class="input-field textarea"></textarea>
+      </div>
+      <button type="submit" class="submit-btn" onclick="sendEmail(); return false;">Send Message</button>
+    </form>
+  </div>
 
   </div>
 </section>
@@ -1934,7 +1934,41 @@
 
 
 <!-- EmailJS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init("NNB9ii67rk8--72s7"); // Replace with your actual Public Key
 
+    function sendEmail() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const phone = document.getElementById('phone').value;
+      const preferred_date = document.getElementById('preferred_date').value;
+
+      if (!name || !email || !message || !phone || !preferred_date) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      emailjs.send("service_p0jmn58", "template_elzug1n", {
+  from_name: name,
+  from_email: email,
+  email: email, // ✅ this is needed to populate {{email}} in your template
+  message: message,
+  phone: phone,
+  preferred_date: preferred_date
+})
+
+      .then(() => {
+        alert("Email sent successfully!");
+        document.getElementById("contact-form").reset();
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        alert("Failed to send email.");
+      });
+    }
+  </script>
 
 
     <!-- certifications page -->
@@ -2065,7 +2099,7 @@ const swiper = new Swiper('.swiper', {
     centeredSlides: true,
     slidesPerView: 1.2,
     loop: true,
-    speed: 700,
+    speed: 1500,
     initialSlide: 1,
     autoplay: {
         delay: 2000,
@@ -2081,13 +2115,19 @@ document.querySelectorAll('.certificate-img').forEach(img => img.onclick = () =>
     modalImg.src = img.src;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+     swiper.autoplay.stop();
 });
 document.querySelector('.coverflow-close').onclick = () => {
     modal.classList.remove('active');
     document.body.style.overflow = '';
+     swiper.autoplay.start();
 };
-modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } };
-document.onkeydown = e => { if (e.key === 'Escape') { modal.classList.remove('active'); document.body.style.overflow = ''; } };
+modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = '';
+    swiper.autoplay.start();
+ } };
+document.onkeydown = e => { if (e.key === 'Escape') { modal.classList.remove('active'); document.body.style.overflow = '';
+    swiper.autoplay.start();
+ } };
 </script>
         </section>
     </div>
